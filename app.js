@@ -68,11 +68,14 @@ async function sendMail(user, callback) {
     }
   });
 
-  let mailOptions = {
+  let  = {
     from:  user.name +" - "+ user.emailFrom, // sender address
+    cc: user.emailFrom,
     to: user.emailTo, // list of receivers
     subject: user.subject, // Subject line
-    html: `<h4>Customer Name: ${user.name}</h4>    
+    html: `
+    <a>********DoNotReply,generated Mail. Pease use the Customer Email to Reply.********</a>
+    <h4>Customer Name: ${user.name}</h4>    
     <p>Customer Email:${user.emailFrom}</p>
     <br>
     <p>${user.message}</p>`
