@@ -74,7 +74,7 @@ async function sendMail(user, callback) {
     to: user.emailTo, // list of receivers
     subject: user.subject, // Subject line
     html: `  
-    <a>********DoNotReply,generated Mail. Pease use the Customer Email to Reply.********</a>
+    <a>********DO NOT REPLY,web site generated Mail. Please use the customer email address to reply.********</a>
     <h4>Customer Name: ${user.name}</h4>    
     <p>Customer Email:${user.emailFrom}</p>
     <br>
