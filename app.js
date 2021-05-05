@@ -26,6 +26,9 @@ var systime = new Systime()
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
 
+
+//captcha
+const axios = require('axios');
 //
 // var httpsServer = https.createServer(credentials, app);
 //
@@ -43,6 +46,85 @@ app.get("/", (req, res) => {
   );
 });
 
+
+
+// app.post("/verify", (req, res) => {
+
+ 
+//   // axios.post(url).then(response =>{
+//   //   console.log("captcha = "+response.data.sucess);
+//   //   if (response.data.sucess) {
+//   //     console.log('dddddddddddddd');
+//   //     res.status(200).json({
+//   //       ressponse:"Verified"
+//   //     });
+//   //   }
+    
+//   // //  if (response.data.error-codes) {
+//   // //   console.log('*****************');
+//   // //   console.log(response.data.error-codes);
+//   // //  }
+//   //   res.status(401).json({
+      
+//   //     error:"Verify failed"
+      
+//   //   });
+    
+//   // }).catch(error =>{
+//   //   console.log(error);
+//   //   res.status(500).json({
+//   //     error:"not responding"
+//   //   });
+//   // })
+
+// });
+
+
+//with captcha
+app.post("/sendmailSecured", (req, res) => {
+  console.log("request came");
+  let user = req.body;
+
+  console.log("captcha request came"); 
+  var secretKey = '6LdNYscaAAAAAL__bqhRO8sgRLNkpVR7eYHdn9ff';
+  var userKey= user.token; 
+  
+  var url= 'https://www.google.com/recaptcha/api/siteverify?secret='+secretKey+'&response='+userKey;
+ 
+   axios.post(url)
+  .then((response) => {
+    console.log("////////////////////////////////////////////");
+     console.log(response.status);
+    console.log("###############################################");
+
+    //mail sender
+    if (response.status = 200) {
+      sendMail(user, info => {
+        console.log(`The mail has beed send 😃 and the id is ${info.messageId}`);
+        console.log(`Sender ${user.name}`);
+       
+        res.status(200).send(info);    
+      });
+    }
+    //mail sender end
+
+  }, (error) => {
+    console.log("***********************************************");
+    console.log("error");
+    console.log(error);
+
+    res.status(500)  
+  });
+
+
+
+
+});
+
+
+
+
+//without captcha
 app.post("/sendmail", (req, res) => {
   console.log("request came");
   let user = req.body;
@@ -50,7 +132,7 @@ app.post("/sendmail", (req, res) => {
     console.log(`The mail has beed send 😃 and the id is ${info.messageId}`);
     console.log(`Sender ${user.name}`);
    
-    res.status(200).send(info);  
+    res.status(200).send(info);    
   });
 });
 
@@ -82,8 +164,7 @@ async function sendMail(user, callback) {
 
   };
 
-  // send mail with defined transport object
-  // console.log(mailOptions);
+  // send mail with defined transport object  
   let info = await transporter.sendMail(mailOptions);
 
   callback(info);
