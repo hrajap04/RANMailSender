@@ -68,23 +68,22 @@ async function sendMail(user, callback) {
     }
   });
 
-  let  = {
+  let  mailOptions = {
     from:  user.name +" - "+ user.emailFrom, // sender address
     cc: user.emailFrom,
     to: user.emailTo, // list of receivers
     subject: user.subject, // Subject line
-    html: `
+    html: `  
     <a>********DoNotReply,generated Mail. Pease use the Customer Email to Reply.********</a>
     <h4>Customer Name: ${user.name}</h4>    
     <p>Customer Email:${user.emailFrom}</p>
     <br>
     <p>${user.message}</p>`
-    // html: `
-    // <h4>Sender Name: ${user.name}</h4><br>
-    // <p>${user.message}</p>`
+
   };
 
   // send mail with defined transport object
+  // console.log(mailOptions);
   let info = await transporter.sendMail(mailOptions);
 
   callback(info);
