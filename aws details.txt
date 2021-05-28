@@ -1,0 +1,16 @@
+Ran AWS
+
+aws user name  - nadunwijetunge@gmail.com
+aws password   - 900890621Suchira
+mailSender Git - Hasaru's git  (hrajap04)
+
+
+pipeline name -ranMailSender
+role name - AWSCodePipelineServiceRole-us-east-2-ranMailSender
+
+
+
+captcha 
+
+siteKey = 6LdNYscaAAAAAFje1KRVqEYXYAozma_UePUvTAZ4
+secretKey = 6LdNYscaAAAAAL__bqhRO8sgRLNkpVR7eYHdn9ff
